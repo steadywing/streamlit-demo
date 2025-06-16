@@ -3,3 +3,5 @@ langchain-community
 langchain-openai
 python-dotenv
 streamlit
+youtube-transcript-api
+yt-dlp
