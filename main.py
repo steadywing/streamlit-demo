@@ -30,7 +30,7 @@ pages = [
         icon=":material/robot:"
     ),
     st.Page(
-        page="pages/05_WritingBot.py", 
+        page="pages/05_writingBot.py", 
         title="Writing Bot", 
         icon=":material/edit_document:"
     ),
