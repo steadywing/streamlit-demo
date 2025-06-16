@@ -28,6 +28,16 @@ pages = [
         page="pages/04_chatbot_npc.py", 
         title="Chatbot NPC", 
         icon=":material/robot:"
+    ),
+    st.Page(
+        page="pages/05_WritingBot.py", 
+        title="Writing Bot", 
+        icon=":material/edit_document:"
+    ),
+    st.Page(
+        page="pages/06_youtubeChatBot.py", 
+        title="Youtube ChatBot", 
+        icon=":material/subscriptions:"
     )
 ]
 
