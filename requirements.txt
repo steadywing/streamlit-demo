@@ -5,3 +5,4 @@ python-dotenv
 streamlit
 youtube-transcript-api
 yt-dlp
+beautifulsoup4
