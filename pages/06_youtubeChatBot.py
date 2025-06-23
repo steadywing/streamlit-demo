@@ -9,7 +9,6 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.messages import HumanMessage, AIMessage
 import yt_dlp
 import requests
-from youtube_transcript_api import YouTubeTranscriptApi
 # -------------------------------------------------------------
 # 기본 설정
 # ------------------------------------------------------------- 
