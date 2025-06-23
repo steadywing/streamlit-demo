@@ -143,6 +143,7 @@ if button:
         # script = ""
         # for item in transcript:
         #     script = script + item["text"] + " "
+        print(info)
         test_url = info['automatic_captions']['ko'][0]['url']  # 자동 생성 자막 정보 확인
         response = requests.get(test_url)
 
