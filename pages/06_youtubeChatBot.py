@@ -28,12 +28,9 @@ profile = {
 # Youtube 정보 추출 관련 옵션
 ydl_opts = {
     'writeautomaticsub': True,  # 자동 생성 자막 다운로드
-    'writesubtitles': True,     # 수동 자막 다운로드
-    'subtitleslangs': ['ko'],   # 한국어 자막만 다운로드
     'skip_download': True,      # 영상 파일 다운로드 없이 정보만 추출
     'no_warnings': True,        # 경고 메시지 숨기기
     'extract_flat': False,      # 영상 정보만 추출
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36'
 }
 
 # Sesstion State에 Youtube 정보를 저장할 Key 만들기
@@ -146,17 +143,16 @@ if button:
         # script = ""
         # for item in transcript:
         #     script = script + item["text"] + " "
-        st.write(info)
-        # test_url = info['automatic_captions']['ko'][0]['url']  # 자동 생성 자막 정보 확인
-        # response = requests.get(test_url)
+        test_url = info["automatic_captions"]["ko"][0]["url"]  # 자동 생성 자막 정보 확인
+        response = requests.get(test_url)
 
-        # result = response.json()
+        result = response.json()
         script = ""
-        # for event in result['events']:
-        #     if 'segs' in event:
-        #         script += "".join(seg['utf8'] for seg in event['segs'] if 'utf8' in seg)
+        for event in result['events']:
+            if 'segs' in event:
+                script += "".join(seg['utf8'] for seg in event['segs'] if 'utf8' in seg)
 
-        # script = script.replace("\n", " ").replace("  ", " ")  # 줄바꿈과 다중 공백 제거
+        script = script.replace("\n", " ").replace("  ", " ")  # 줄바꿈과 다중 공백 제거
         st.session_state["script"] = script
         # -------------------------------------------------------------
         # Langchain 관련 설정 II
