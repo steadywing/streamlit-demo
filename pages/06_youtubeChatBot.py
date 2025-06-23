@@ -8,6 +8,7 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.messages import HumanMessage, AIMessage
 import yt_dlp
+import requests
 from youtube_transcript_api import YouTubeTranscriptApi
 # -------------------------------------------------------------
 # 기본 설정
@@ -26,6 +27,7 @@ profile = {
 
 # Youtube 정보 추출 관련 옵션
 ydl_opts = {
+    'writeautomaticsub': True, 
     'skip_download': True,
     'quiet': True,
     'forcejson': True,
@@ -135,12 +137,22 @@ if button:
         # -------------------------------------------------------------
         # Youtube Script 추출
         # ------------------------------------------------------------- 
-        video_id = url.split("v=")[1]
-        transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=["ko"])
+        # video_id = url.split("v=")[1]
+        # transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=["ko"])
 
+        # script = ""
+        # for item in transcript:
+        #     script = script + item["text"] + " "
+        test_url = info['automatic_captions']['ko'][0]['url']  # 자동 생성 자막 정보 확인
+        response = requests.get(test_url)
+
+        result = response.json()
         script = ""
-        for item in transcript:
-            script = script + item["text"] + " "
+        for event in result['events']:
+            if 'segs' in event:
+                script += "".join(seg['utf8'] for seg in event['segs'] if 'utf8' in seg)
+
+        script = script.replace("\n", " ").replace("  ", " ")  # 줄바꿈과 다중 공백 제거
         # -------------------------------------------------------------
         # Langchain 관련 설정 II
         # ------------------------------------------------------------- 
