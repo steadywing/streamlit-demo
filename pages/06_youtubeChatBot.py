@@ -27,16 +27,10 @@ profile = {
 
 # Youtube 정보 추출 관련 옵션
 ydl_opts = {
-    'writeautomaticsub': True,  # 자동 생성 자막 다운로드
-    'skip_download': True,      # 영상 파일 다운로드 없이 정보만 추출
-    'no_warnings': True,        # 경고 메시지 숨기기
-    'extract_flat': False,      # 영상 정보만 추출
-    'geo_bypass': True,
-    'http_headers': {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-        'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
-        'Accept': '*/*',
-    }
+    'writeautomaticsub': True, 
+    'skip_download': True,
+    'quiet': True,
+    'forcejson': True,
 }
 
 # Sesstion State에 Youtube 정보를 저장할 Key 만들기
@@ -115,6 +109,8 @@ def get_session_history(session_id):
 # ------------------------------------------------------------- 
 st.title("💻 Youtube ChatBot")
 st.info("Youtube 영상 기반 챗봇입니다. 영상과 관련하여 질문하고 그에 대한 응답을 체험해보세요", icon="ℹ️")
+st.warning("""해당 기능은 YouTube의 지역 제한 및 서버 환경 차이로 인해 Streamlit Cloud에서는 자막 추출이 원활하지 않습니다.
+           정상적인 자막 추출을 위해 로컬 환경에서 실행하시기 바랍니다.""", icon="⚠️")
 
 with st.expander(label="⚙️ 입력 정보", expanded=True):
     # URL 입력창
@@ -127,7 +123,8 @@ with st.expander(label="⚙️ 입력 정보", expanded=True):
     button = st.button(
         label="챗봇 생성", 
         type="primary", 
-        use_container_width=True
+        use_container_width=True,
+        disabled=True
     )
 if button:
     with st.spinner("챗봇 생성 중..."):
@@ -149,7 +146,7 @@ if button:
         # script = ""
         # for item in transcript:
         #     script = script + item["text"] + " "
-        test_url = info["automatic_captions"]["ko"][0]["url"]  # 자동 생성 자막 정보 확인
+        test_url = info['automatic_captions']['ko'][0]['url']  # 자동 생성 자막 정보 확인
         response = requests.get(test_url)
 
         result = response.json()
