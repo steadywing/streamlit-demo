@@ -3,6 +3,6 @@ langchain-community
 langchain-openai
 python-dotenv
 streamlit
-youtube-transcript-api
+requests
 yt-dlp
 beautifulsoup4
