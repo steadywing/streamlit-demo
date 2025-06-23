@@ -31,8 +31,15 @@ ydl_opts = {
     'skip_download': True,      # 영상 파일 다운로드 없이 정보만 추출
     'no_warnings': True,        # 경고 메시지 숨기기
     'extract_flat': False,      # 영상 정보만 추출
-    'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-    'geo_bypass': True
+    'geo_bypass': True,
+    'http_headers': {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': '*/*',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Origin': 'https://www.youtube.com',
+        'Referer': 'https://www.youtube.com/',
+    }
 }
 
 # Sesstion State에 Youtube 정보를 저장할 Key 만들기
