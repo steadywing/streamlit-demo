@@ -144,16 +144,16 @@ if button:
         # script = ""
         # for item in transcript:
         #     script = script + item["text"] + " "
-        test_url = info['automatic_captions']['ko'][0]['url']  # 자동 생성 자막 정보 확인
-        response = requests.get(test_url)
-
-        result = response.json()
-        script = ""
-        for event in result['events']:
-            if 'segs' in event:
-                script += "".join(seg['utf8'] for seg in event['segs'] if 'utf8' in seg)
-
-        script = script.replace("\n", " ").replace("  ", " ")  # 줄바꿈과 다중 공백 제거
+            test_url = info['automatic_captions']['ko'][0]['url']  # 자동 생성 자막 정보 확인
+            response = requests.get(test_url)
+    
+            result = response.json()
+            script = ""
+            for event in result['events']:
+                if 'segs' in event:
+                    script += "".join(seg['utf8'] for seg in event['segs'] if 'utf8' in seg)
+    
+            script = script.replace("\n", " ").replace("  ", " ")  # 줄바꿈과 다중 공백 제거
         # -------------------------------------------------------------
         # Langchain 관련 설정 II
         # ------------------------------------------------------------- 
