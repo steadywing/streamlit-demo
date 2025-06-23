@@ -31,7 +31,6 @@ ydl_opts = {
     'skip_download': True,      # 영상 파일 다운로드 없이 정보만 추출
     'no_warnings': True,        # 경고 메시지 숨기기
     'extract_flat': False,      # 영상 정보만 추출
-    'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
 }
 
 # Sesstion State에 Youtube 정보를 저장할 Key 만들기
