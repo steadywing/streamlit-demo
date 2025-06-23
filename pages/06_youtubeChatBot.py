@@ -26,10 +26,12 @@ profile = {
 
 # Youtube 정보 추출 관련 옵션
 ydl_opts = {
-    'writeautomaticsub': True, 
+    'writesubtitles': True,
+    'writeautomaticsub': True,
+    'subtitleslangs': ['ko'],
     'skip_download': True,
-    'quiet': True,
-    'forcejson': True,
+    'no_warnings': True,
+    'extract_flat': False,
 }
 
 # Sesstion State에 Youtube 정보를 저장할 Key 만들기
