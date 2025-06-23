@@ -9,6 +9,7 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.messages import HumanMessage, AIMessage
 import yt_dlp
 import requests
+# from youtube_transcript_api import YouTubeTranscriptApi
 # -------------------------------------------------------------
 # 기본 설정
 # ------------------------------------------------------------- 
@@ -26,12 +27,10 @@ profile = {
 
 # Youtube 정보 추출 관련 옵션
 ydl_opts = {
-    'writesubtitles': True,
-    'writeautomaticsub': True,
-    'subtitleslangs': ['ko'],
+    'writeautomaticsub': True, 
     'skip_download': True,
-    'no_warnings': True,
-    'extract_flat': False,
+    'quiet': True,
+    'forcejson': True,
 }
 
 # Sesstion State에 Youtube 정보를 저장할 Key 만들기
@@ -144,7 +143,6 @@ if button:
         # script = ""
         # for item in transcript:
         #     script = script + item["text"] + " "
-        info = st.session_state["info"]
         test_url = info['automatic_captions']['ko'][0]['url']  # 자동 생성 자막 정보 확인
         response = requests.get(test_url)
 
@@ -155,6 +153,7 @@ if button:
                 script += "".join(seg['utf8'] for seg in event['segs'] if 'utf8' in seg)
 
         script = script.replace("\n", " ").replace("  ", " ")  # 줄바꿈과 다중 공백 제거
+        st.session_state["script"] = script
         # -------------------------------------------------------------
         # Langchain 관련 설정 II
         # ------------------------------------------------------------- 
@@ -204,6 +203,10 @@ if chain is not None:
 
     # ChatBot 생성 안내 메세지 출력
     st.markdown("Youtube 기반 챗봇이 생성되었습니다. 대화해보세요 😀")
+
+    # 요약 확인
+    # with st.expander(label="📜 요약", expanded=False):
+    #     st.markdown(st.session_state["script"])
 
     # Session State에 Chat History가 있으면, 이전 대화 출력하기
     if username in history:
